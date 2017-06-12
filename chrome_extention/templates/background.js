@@ -3,6 +3,8 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   chrome.tabs.executeScript(tab.id, {file: "sender.js"});
 });*/
 
+
+
 function getCurrentTabUrl(callback) {
   var queryInfo = {
     active: true,
@@ -21,10 +23,9 @@ function getCurrentTabUrl(callback) {
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    console.log("Done");
-    var response = xmlhttp.response;
-    console.log(response);
-    document.getElementById('first').textContent = response;
+    var response = JSON.parse(xmlhttp.response);
+    adjusted_rating = response.rating - Math.floor(Math.random() * 1) + 0.2
+    show_results(response);
   } else if (xmlhttp.readyState == 4) {
     console.log('Something went wrong: ' + xmlhttp.status);
   }
@@ -44,6 +45,10 @@ document.addEventListener('DOMContentLoaded', function()
                 xmlhttp.send('url=' + encodeURIComponent(url));
             } else {
                 document.getElementById('first').textContent = "Please click on Amazon page.";
+                var x = document.getElementsByClassName('loading');
+                 for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                    }
             }
         },
         function(errorMessage)
@@ -53,3 +58,47 @@ document.addEventListener('DOMContentLoaded', function()
 
     );
 });
+
+function show_results(response) {
+    // Hide loading
+    var x = document.getElementsByClassName('loading');
+    for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+    }
+    console.log("Done");
+    console.log(response);
+
+    // Display title and image
+    document.getElementById('title').textContent = response.title;
+    document.getElementById('image').src = response.image_url;
+    document.getElementById('main').style.display = "block"
+    document.getElementById('result').textContent = response.text_result;
+    // Display ratings
+     $('#original_rating').barrating({
+        showSelectedRating: false,
+        theme: 'fontawesome-stars-o',
+        initialRating: response.rating
+      });
+      $('#adjusted_rating').barrating({
+        showSelectedRating: false,
+        theme: 'fontawesome-stars-o',
+        initialRating: adjusted_rating
+      });
+     $('select').barrating('show');
+     $('select').barrating('readonly', true);
+
+     //Display pros and cons
+     var pros = response.pros;
+     var cons = response.cons;
+     var p = ""
+     var c = ""
+     for(i = 0; i < pros.length; i++) {
+       var p = p + "<li class='collection-item'>"+pros[i]+"</li>";
+     }
+      for(i = 0; i < cons.length; i++) {
+       var c = c + "<li class='collection-item'>"+cons[i]+"</li>";
+     }
+
+     $("#pros").html('<li class="collection-header"><h6>Pros:</h6></li>'+p);
+     $("#cons").html('<li class="collection-header"><h6>Cons:</h6></li>'+c);
+}

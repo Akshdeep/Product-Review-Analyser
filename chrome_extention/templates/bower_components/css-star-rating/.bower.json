@@ -1,0 +1,53 @@
+{
+  "name": "css-star-rating",
+  "version": "1.1.1",
+  "description": "Css Star Rating is pure css component written in scss.",
+  "main": "dist/css/star-rating.css",
+  "authors": [
+    "Michael Hladky"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Rating",
+    "Stars",
+    "Star Rating",
+    "Star-Rating",
+    "Starrating",
+    "Icon",
+    "Iconfont",
+    "Fonticons",
+    "Fontawesome",
+    "SVG",
+    "PNG",
+    "JPEG",
+    "CSS",
+    "Pure CSS",
+    "CSS only",
+    "SCSS"
+  ],
+  "homepage": "https://github.com/BioPhoton/css-star-rating",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "chore",
+    "sc5-styleguide",
+    ".gitignore",
+    ".travis.yml",
+    ".idea",
+    "gulpfile.js"
+  ],
+  "dependencies": {},
+  "_release": "1.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.1",
+    "commit": "f3b41273facadb70286e41cc42e19e483c2e3d1d"
+  },
+  "_source": "https://github.com/BioPhoton/css-star-rating.git",
+  "_target": "^1.1.1",
+  "_originalSource": "css-star-rating",
+  "_direct": true
+}
